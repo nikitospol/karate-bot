@@ -107,21 +107,17 @@ async def handle_message(message: Message):
         current_field[user_id] = None
         order = order_data[user_id]
         summary = (
-            f"Ваш заказ:
-"
-            f"Бренд: {order['brand']}
-"
-            f"Модель: {order['model']}
-"
-            f"Размер куртки: {order['jacket_size']}
-"
-            f"Размер штанов: {order['pants_size']}
-"
-            f"Нашивка JKA: {'Да' if order['jka_patch'] else 'Нет'}
-"
-            f"Имя для вышивки: {order['name_embroidery'] or 'Нет'}
-"
-            f"Лейбл: {order['label']}"
+            summary = (
+    f"Ваш заказ:\n"
+    f"Бренд: {order['brand']}\n"
+    f"Модель: {order['model']}\n"
+    f"Размер куртки: {order['jacket_size']}\n"
+    f"Размер штанов: {order['pants_size']}\n"
+    f"Нашивка JKA: {'Да' if order['jka_patch'] else 'Нет'}\n"
+    f"Имя для вышивки: {order['name_embroidery'] or 'Нет'}\n"
+    f"Лейбл: {order['label']}"
+)
+
         )
         await message.answer(summary)
         await message.answer("Спасибо за заказ! Мы свяжемся с вами для подтверждения.", answer_markup=main_menu)
