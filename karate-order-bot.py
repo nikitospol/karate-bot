@@ -142,9 +142,7 @@ async def handle_message(message: Message):
 
         await message.answer(summary)
         await message.answer("Спасибо за заказ! Мы свяжемся с вами для подтверждения.", reply_markup=main_menu)
-        await bot.send_message(chat_id=ADMIN_USERNAME, text=f"📥 Новый заказ от @{message.from_user.username}:
-
-{summary}")
+        await bot.send_message(chat_id=ADMIN_USERNAME, text=f"📥 Новый заказ от @{message.from_user.username}:\n\n{summary}")
         save_to_google_sheets(order, message.from_user.username or "Без username")
 
 dp.include_router(router)
