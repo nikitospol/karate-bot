@@ -22,7 +22,7 @@ def save_to_google_sheets(order, username):
     creds = ServiceAccountCredentials.from_json_keyfile_name("karate-orders-bot-72d967ae279a.json", scope)
     client = gspread.authorize(creds)
 
-    sheet = client.open("Karate Orders").sheet1
+    sheet = client.open("Заказы из ТГ бота").sheet1
     sheet.append_row([
         datetime.now().strftime("%Y-%m-%d %H:%M"),
         username,
@@ -53,14 +53,14 @@ current_field = {}
 @router.message(Command("start"))
 async def start_command(message: Message):
     await message.answer(
-        "Привет! Я бот для заказа японского кимоно для каратэ. Нажми 'Оформить заказ', чтобы начать.",
+        "Добро пожаловать! Я бот для заказа кимоно для каратэ из Японии. Я помогу с заказом, тебе нужно лишь ответить на следующие вопросы. Нажми 'Оформить заказ', чтобы начать.",
         reply_markup=main_menu
     )
 
 @router.message(F.text == "🛒 Оформить заказ")
 async def start_order(message: Message):
     order_data[message.chat.id] = {}
-    await message.answer("Выберите бренд:", reply_markup=create_brand_buttons())
+    await message.answer("Давай для начала определимся с брендом!", reply_markup=create_brand_buttons())
     current_field[message.chat.id] = 'brand'
 
 def create_brand_buttons():
@@ -106,19 +106,19 @@ async def handle_message(message: Message):
             keyboard=[[KeyboardButton(text="Да"), KeyboardButton(text="Нет")]],
             resize_keyboard=True
         )
-        await message.answer("Нужна ли нашивка JKA?", reply_markup=markup)
+        await message.answer("Нужна ли нашивка JKA на груди?", reply_markup=markup)
 
     elif field == 'jka_patch':
         order_data[user_id]['jka_patch'] = message.text == "Да"
         current_field[user_id] = 'name_embroidery'
-        await message.answer("Введите имя для вышивки (или напишите 'Нет'):")
+        await message.answer("Введите имя для вышивки на катакана (если не знаете как пишется, то на английском) или напишите 'Нет':")
 
     elif field == 'name_embroidery':
         name = message.text
         order_data[user_id]['name_embroidery'] = None if name.lower() == 'нет' else name
         current_field[user_id] = 'label'
         markup = ReplyKeyboardMarkup(
-            keyboard=[[KeyboardButton(text="JKA"), KeyboardButton(text="WKF"), KeyboardButton(text="Без лейбла")]],
+            keyboard=[[KeyboardButton(text="JKA"), KeyboardButton(text="WKF"), KeyboardButton(text="Без лейбла"), KeyboardButton(text="Другое")]],
             resize_keyboard=True
         )
         await message.answer("Выберите лейбл:", reply_markup=markup)
