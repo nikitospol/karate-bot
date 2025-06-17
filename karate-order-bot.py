@@ -13,7 +13,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 # === ENV ===
 load_dotenv()
-BOT_TOKEN = os.getenv("7222903418:AAEmFCewivYsudEXTDEVdDAUrRNtKVDvuSo")
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 ADMIN_USERNAME = "@nikibelka"
 
 # === GOOGLE SHEETS ===
