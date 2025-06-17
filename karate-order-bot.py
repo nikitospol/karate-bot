@@ -118,7 +118,7 @@ async def handle_message(message: Message):
 )
 
 
-        )
+        
         await message.answer(summary)
         await message.answer("Спасибо за заказ! Мы свяжемся с вами для подтверждения.", answer_markup=main_menu)
 
