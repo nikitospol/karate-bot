@@ -107,7 +107,6 @@ async def handle_message(message: Message):
         current_field[user_id] = None
         order = order_data[user_id]
         summary = (
-            summary = (
     f"Ваш заказ:\n"
     f"Бренд: {order['brand']}\n"
     f"Модель: {order['model']}\n"
@@ -117,6 +116,7 @@ async def handle_message(message: Message):
     f"Имя для вышивки: {order['name_embroidery'] or 'Нет'}\n"
     f"Лейбл: {order['label']}"
 )
+
 
         )
         await message.answer(summary)
