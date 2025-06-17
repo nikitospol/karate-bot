@@ -152,3 +152,9 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
+
+@router.message(Command("get_id"))
+async def get_id(message: Message):
+    await message.answer(f"Ваш ID чата: {message.chat.id}")
+
